@@ -137,6 +137,36 @@ class XmlTest(unittest.TestCase):
         a = pymarc.parse_xml_to_array(open('test/bad_tag.xml'))
         self.assertEqual(len(a), 1)
 
+    def test_encoding(self):
+        # Create a record
+        record1 = pymarc.Record()
+        # Add a field containing no diacritics
+        record1.add_field(pymarc.Field(tag='245', indicators=[' ',' '], subfields=['a','Report of the Committee on the Peaceful Uses of Outer Space']))
+        # And a field containing diacritics
+        record1.add_field(pymarc.Field(tag='246', indicators=[' ',' '], subfields=['a',"Rapport du Comité des utilisations pacifiques de l'espace extra-atmosphérique"]))
+        # Create XML with an encoding specified
+        record_xml = pymarc.marcxml.record_to_xml(record1,encoding='utf-8')
+        # Parse the generated XML
+        record2 = pymarc.parse_xml_to_array(six.BytesIO(record_xml))[0]
+
+        # Compare the two records. If the other tests above pass, and this one passes, then the addition of an encoding 
+        # parameter in the marcxml.record_to_xml fuction didn't seem to break basic functionality of the library.
+        self.assertEqual(record1.leader, record2.leader)
+
+        field1 = record1.get_fields()
+        field2 = record2.get_fields()
+        self.assertEqual(len(field1),len(field2))
+
+        pos = 0
+        while pos < len(field1):
+          self.assertEqual(field1[pos].tag, field2[pos].tag)
+          if field1[pos].is_control_field():
+            self.assertEqual(field1[pos].data, field2[pos].data)
+          else:
+            self.assertEqual(field1[pos].get_subfields(), field2[pos].get_subfields())
+            self.assertEqual(field1[pos].indicators, field2[pos].indicators)
+          pos += 1
+
 def suite():
     test_suite = unittest.makeSuite(XmlTest, 'test')
     return test_suite

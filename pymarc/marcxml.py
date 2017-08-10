@@ -127,9 +127,9 @@ def parse_xml_to_array(xml_file, strict=False, normalize_form=None):
     parse_xml(xml_file, handler)
     return handler.records
 
-def record_to_xml(record, quiet=False, namespace=False):
+def record_to_xml(record, quiet=False, namespace=False, encoding='us-ascii'):
     node = record_to_xml_node(record, quiet, namespace)
-    return ET.tostring(node)
+    return ET.tostring(node, encoding=encoding)
 
 def record_to_xml_node(record, quiet=False, namespace=False):
     """
