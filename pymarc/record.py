@@ -533,6 +533,9 @@ class Record(Iterator):
 
         return None
 
+    def document_symbol(self):
+        return self.get_fields('191')
+
 def map_marc8_record(r):
     r.fields = map(map_marc8_field, r.fields)
     l = list(r.leader)
