@@ -534,7 +534,10 @@ class Record(Iterator):
         return None
 
     def document_symbol(self):
-        return self.get_fields('191')
+        def document_symbol(self):
+        for f in self.get_fields('191'):
+            if self['191']:
+                return self['191']['a']
 
     def related_documents(self):
         return self.get_fields('993')
