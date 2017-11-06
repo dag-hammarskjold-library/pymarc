@@ -541,14 +541,14 @@ class Record(Iterator):
     def related_documents(self):
         rel = []
         for f in self.get_fields('993'):
-            if self['993'] and f.indicator1 in ['1', '2', '3']:
+            if self['993'] and f.indicator in ['1', '2', '3']:
                 rel.append(self['993'])
         return rel
 
     def authors(self):
         authors = []
         for f in self.get_fields('700', '701'):
-            if self['700'] and f.indicator1 in ['1', '2', '3']:
+            if self['700'] and f.indicator in ['1', '2', '3']:
                 authors.append(self['700']['a'])
             if self['701']:
                 authors.append(self['710']['a'])
