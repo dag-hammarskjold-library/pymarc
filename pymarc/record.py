@@ -544,7 +544,7 @@ class Record(Iterator):
     def authors(self):
         authors = []
         for f in self.get_fields('700', '701'):
-            if self['700']:
+            if self['700'] and f.indicator in ['1', '2', '3']:
                 authors.append(self['700']['a'])
             if self['701']:
                 authors.append(self['710']['a'])
