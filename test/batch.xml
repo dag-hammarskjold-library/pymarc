@@ -146,6 +146,18 @@ http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
 		<marc:datafield tag="710" ind1="2" ind2=" ">
 			<marc:subfield code="a">White House Web Team.</marc:subfield>
 		</marc:datafield>
+		<marc:datafield tag="700" ind1="1" ind2=" ">
+			<subfield code="0">923427</subfield>
+			<subfield code="a">Annan, Kofi, 1938-</subfield>
+		</marc:datafield>
+		<marc:datafield tag="710" ind1="2" ind2=" ">
+			<subfield code="0">864434</subfield>
+			<subfield code="a">UN. Secretary-General</subfield>
+		</marc:datafield>
+		<marc:datafield tag="710" ind1="2" ind2=" ">
+			<subfield code="0">924140</subfield>
+			<subfield code="a">UN. Spokesman for the Secretary-General</subfield>
+		</marc:datafield>
 		<marc:datafield tag="856" ind1="4" ind2="0">
 			<marc:subfield code="u">http://www.whitehouse.gov</marc:subfield>
 		</marc:datafield>

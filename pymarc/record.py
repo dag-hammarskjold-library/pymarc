@@ -541,6 +541,16 @@ class Record(Iterator):
     def related_documents(self):
         return self.get_fields('993')
 
+    def authors(self):
+        authors = []
+        for f in self.get_fields('700', '701'):
+            if self['700']:
+                authors.append(self['700']['a'])
+            if self['701']:
+                authors.append(self['710']['a'])
+        return authors
+
+
 def map_marc8_record(r):
     r.fields = map(map_marc8_field, r.fields)
     l = list(r.leader)
