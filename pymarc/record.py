@@ -542,16 +542,16 @@ class Record(Iterator):
        return self.get_fields('993')
 
     def authors(self):
-        authors = []
         for f in self.get_fields('700', '701'):
             if self['700'] and f.indicator1 in ['1', '2', '3']:
-                authors.append(self['700']['a'])
+                return self['700']['a']
             if self['701']:
-                authors.append(self['710']['a'])
-        return authors
+                return self['710']['a']
 
     def summary(self):
-        return self.get_fields('995')
+        for f in self.get_fields('995'):
+            if self['995']:
+                return self['995']['a']
 
 
 def map_marc8_record(r):
