@@ -513,7 +513,7 @@ class Record(Iterator):
         return self.get_fields('300')
 
     def title_statement(self):
-        return self.get_fields('245'):
+        return self.get_fields('245')
 
     def publisher(self):
         """
