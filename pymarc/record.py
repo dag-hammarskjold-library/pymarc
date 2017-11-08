@@ -512,6 +512,9 @@ class Record(Iterator):
         """
         return self.get_fields('300')
 
+    def title_statement(self):
+        return self.get_fields('245')
+
     def publisher(self):
         """
         Note: 264 field with second indicator '1' indicates publisher.
@@ -532,6 +535,27 @@ class Record(Iterator):
                 return self['264']['c']
 
         return None
+
+    def document_symbol(self):
+        for f in self.get_fields('191'):
+            if self['191']:
+                return self['191']['a']
+
+    def related_documents(self):
+       return self.get_fields('993')
+
+    def authors(self):
+        for f in self.get_fields('700', '701'):
+            if self['700'] and f.indicator1 in ['1', '2', '3']:
+                return self['700']['a']
+            if self['701']:
+                return self['710']['a']
+
+    def summary(self):
+        for f in self.get_fields('995'):
+            if self['995']:
+                return self['995']['a']
+
 
 def map_marc8_record(r):
     r.fields = map(map_marc8_field, r.fields)
