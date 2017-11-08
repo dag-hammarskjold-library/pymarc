@@ -556,6 +556,11 @@ class Record(Iterator):
             if self['995']:
                 return self['995']['a']
 
+    def agenda(self):
+        for f in self.get_fields('991'):
+            if self['991']:
+                return self['991']['c']
+
 
 def map_marc8_record(r):
     r.fields = map(map_marc8_field, r.fields)
