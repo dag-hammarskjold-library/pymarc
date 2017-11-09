@@ -28,6 +28,7 @@ except ImportError:
 
 isbn_regex = re.compile(r'([0-9\-xX]+)')
 
+
 @six.python_2_unicode_compatible
 class Record(Iterator):
     """
@@ -246,7 +247,7 @@ class Record(Iterator):
 
         # extract directory, base_address-1 is used since the
         # director ends with an END_OF_FIELD byte
-        directory = marc[LEADER_LEN:base_address-1].decode('ascii')
+        directory = marc[LEADER_LEN:base_address - 1].decode('ascii')
 
         # determine the number of fields in record
         if len(directory) % DIRECTORY_ENTRY_LEN != 0:
@@ -262,7 +263,7 @@ class Record(Iterator):
             entry_tag = entry[0:3]
             entry_length = int(entry[3:7])
             entry_offset = int(entry[7:12])
-            entry_data = marc[base_address + entry_offset :
+            entry_data = marc[base_address + entry_offset:
                 base_address + entry_offset + entry_length - 1]
 
             # assume controlfields are numeric; replicates ruby-marc behavior
@@ -316,15 +317,15 @@ class Record(Iterator):
                     subfields.append(data)
                 if to_unicode:
                     field = Field(
-                        tag = entry_tag,
-                        indicators = [first_indicator, second_indicator],
-                        subfields = subfields,
+                        tag=entry_tag,
+                        indicators=[first_indicator, second_indicator],
+                        subfields=subfields,
                     )
                 else:
                     field = RawField(
-                        tag = entry_tag,
-                        indicators = [first_indicator, second_indicator],
-                        subfields = subfields,
+                        tag=entry_tag,
+                        indicators=[first_indicator, second_indicator],
+                        subfields=subfields,
                     )
             self.add_field(field)
             field_count += 1
@@ -542,9 +543,9 @@ class Record(Iterator):
                 return self['191']['a']
 
     def related_documents(self):
-       return self.get_fields('993')
+        return self.get_fields('993')
 
-    def authors(self):
+    def authority_authors(self):
         for f in self.get_fields('700', '710'):
             if self['700'] and f.indicator1 in ['1', '2', '3']:
                 return self['700']['a']
@@ -565,6 +566,6 @@ class Record(Iterator):
 def map_marc8_record(r):
     r.fields = map(map_marc8_field, r.fields)
     l = list(r.leader)
-    l[9] = 'a' # see http://www.loc.gov/marc/specifications/speccharucs.html
+    l[9] = 'a'  # see http://www.loc.gov/marc/specifications/speccharucs.html
     r.leader = "".join(l)
     return r
