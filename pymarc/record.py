@@ -546,11 +546,7 @@ class Record(Iterator):
         return self.get_fields('993')
 
     def authority_authors(self):
-        for f in self.get_fields('700', '710'):
-            if self['700'] and f.indicator1 in ['1', '2', '3']:
-                return self['700']['a']
-            if self['710']:
-                return self['710']['a']
+        return self.get_fields('700', '710')
 
     def summary(self):
         for f in self.get_fields('995'):
