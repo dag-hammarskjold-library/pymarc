@@ -273,6 +273,14 @@ class RecordTest(unittest.TestCase):
             subfields=['a', 'London :', 'b', 'Penguin,', 'c', '1961.']))
         self.assertEqual(record.pubyear(), '1961.')
 
+    def test_authority_authors(self):
+        record = Record()
+        record.add_field(Field('710', ['2', ' '],
+            subfields=['a', "UN. General Assembly (60th sess. : 2005-2006)"]))
+        record.add_field(Field('710', ['2', ' '],
+            subfields=['a', "Andorra"]))
+        self.assertEqual(len(record.authority_authors()), 2)
+
     def test_alphatag(self):
         record = Record()
         record.add_field(Field('CAT', [' ', ' '], subfields=['a', 'foo']))
