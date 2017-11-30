@@ -558,6 +558,9 @@ class Record(Iterator):
             if self['991']:
                 return self['991']['c']
 
+    def imprint(self):
+        return self.get_fields('260')
+
 
 def map_marc8_record(r):
     r.fields = map(map_marc8_field, r.fields)
