@@ -564,13 +564,7 @@ class Record(Iterator):
         return self.get_fields('260')
 
     def voting_record(self):
-        votes = {}
-        for f in self.get_fields('967'):
-            if self['967']:
-                country = self['967']['e']
-                vote = self['967']['d']
-                votes[country] = vote
-        return votes
+        return self.get_fields('967')
 
 
 def map_marc8_record(r):
