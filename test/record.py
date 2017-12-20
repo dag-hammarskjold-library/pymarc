@@ -279,6 +279,7 @@ class RecordTest(unittest.TestCase):
             subfields=['a', "UN. General Assembly (60th sess. : 2005-2006)"]))
         record.add_field(Field('710', ['2', ' '],
             subfields=['a', "Andorra"]))
+        print(record.authority_authors())
         self.assertEqual(len(record.authority_authors()), 2)
 
     def test_alphatag(self):
