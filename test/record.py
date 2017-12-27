@@ -273,6 +273,13 @@ class RecordTest(unittest.TestCase):
             subfields=['a', 'London :', 'b', 'Penguin,', 'c', '1961.']))
         self.assertEqual(record.pubyear(), '1961.')
 
+    def test_pub_date(self):
+        record = Record()
+        self.assertEqual(record.pub_date(), None)
+        record.add_field(Field('269', [' ', ' '],
+            subfields=['a', '20170123']))
+        self.assertEqual(record.pub_date(), '20170123')
+
     def test_authority_authors(self):
         record = Record()
         record.add_field(Field('710', ['2', ' '],

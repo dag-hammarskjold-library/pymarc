@@ -537,6 +537,10 @@ class Record(Iterator):
 
         return None
 
+    def pub_date(self):
+        if self.get_fields('269'):
+            return self['269']['a']
+
     def document_symbol(self):
         for f in self.get_fields('191'):
             if self['191']:
