@@ -494,10 +494,7 @@ class Record(Iterator):
         return loc
 
     def electronic_location(self):
-        e_rec = []
-        for f in self.get_fields('856'):
-            e_rec.append(self['856']['u'])
-        return e_rec
+        return self.get_fields('856')
 
     def notes(self):
         """
