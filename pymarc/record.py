@@ -493,6 +493,10 @@ class Record(Iterator):
         loc = self.get_fields('852')
         return loc
 
+    def eletronic_location(self):
+        if self.get_fields('856'):
+            return self['856']['u']
+
     def notes(self):
         """
         Return all 5xx fields in an array.
