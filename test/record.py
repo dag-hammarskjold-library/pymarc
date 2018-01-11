@@ -298,10 +298,10 @@ class RecordTest(unittest.TestCase):
             subfields=['s', '289890', 'u', 'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-ES.pdf'])
         )
         self.assertEqual(len(record.electronic_location()), 2)
-        self.assertEqual(record.electronic_location()[0],
-            'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-EN.pdf')
-        # self.assertEqual(record.electronic_location()[1],
-        #     'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-ES.pdf')
+        self.assertEqual(record.electronic_location()[0].format_field(),
+            '287086 http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-EN.pdf')
+        self.assertEqual(record.electronic_location()[1].format_field(),
+            '289890 http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-ES.pdf')
 
     def test_alphatag(self):
         record = Record()
