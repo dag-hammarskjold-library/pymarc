@@ -6,6 +6,7 @@ from pymarc.field import Field
 from pymarc.exceptions import BaseAddressInvalid, RecordLeaderInvalid, \
         FieldNotFound
 
+
 class RecordTest(unittest.TestCase):
 
     def test_add_field(self):
@@ -84,9 +85,9 @@ class RecordTest(unittest.TestCase):
             subfields = ['a', 'Programming Language'])
         record.add_field(subject1)
         subject2 = Field(
-            tag = '651',
-            indicators = ['', '0'],
-            subfields = ['a', 'Object Oriented'])
+            tag='651',
+            indicators=['', '0'],
+            subfields=['a', 'Object Oriented'])
         record.add_field(subject2)
         found = record.get_fields('650', '651')
         self.assertEqual(len(found), 2)
@@ -286,8 +287,21 @@ class RecordTest(unittest.TestCase):
             subfields=['a', "UN. General Assembly (60th sess. : 2005-2006)"]))
         record.add_field(Field('710', ['2', ' '],
             subfields=['a', "Andorra"]))
-        print(record.authority_authors())
         self.assertEqual(len(record.authority_authors()), 2)
+
+    def test_electronic_location(self):
+        record = Record()
+        record.add_field(Field('856', ['4', ' '],
+            subfields=['s', '287086', 'u', 'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-EN.pdf'])
+        )
+        record.add_field(Field('856', ['4', ' '],
+            subfields=['s', '289890', 'u', 'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-ES.pdf'])
+        )
+        self.assertEqual(len(record.electronic_location()), 2)
+        self.assertEqual(record.electronic_location()[0],
+            'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-EN.pdf')
+        # self.assertEqual(record.electronic_location()[1],
+        #     'http://digitallibrary.un.org/record/1317932/files/A_C-4_72_L-24-ES.pdf')
 
     def test_alphatag(self):
         record = Record()
